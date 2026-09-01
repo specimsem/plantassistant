@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06100a">
+<link rel="manifest" href="manifest.json">
+<title>PlantAssistant</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
+:root{--bg:#06100a;--ink:#f3f5f1;--muted:#a7b0aa;--green:#8fda5c;--gold:#d8c66d;--blue:#86d4f3;--glass:rgba(7,25,15,.46);--glass2:rgba(13,36,21,.58);--line:rgba(145,214,106,.28)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",sans-serif}
+body:before{content:"";position:fixed;inset:0;z-index:-3;background:url("assets/botanical-scene.jpg") center top/cover no-repeat}
+body:after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(2,12,6,.22),rgba(2,12,6,.45) 45%,rgba(2,12,6,.66));pointer-events:none}
+button{font:inherit;color:inherit}
+.page{max-width:760px;margin:auto;padding:0 30px 130px}
+.hero{padding:30px 5px 22px;min-height:270px;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center}
+.menu{font-size:28px;color:var(--green);background:none;border:0}
+.actions{display:flex;gap:12px;align-items:center}.bubble{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#16300d;font-size:12px;font-weight:700}.avatar{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.22) url("assets/botanical-scene.jpg") center/cover;border:1px solid rgba(255,255,255,.2)}
+.hello{margin-top:36px;color:#b5bdb7;font-size:17px}.name{font-family:"Playfair Display",Georgia,serif;font-size:50px;line-height:1;margin:7px 0}.name span{font-family:inherit;color:var(--green)}.tag{color:var(--gold);font-size:15px}
+.stats{display:flex;gap:34px;margin-top:30px}.stat{min-width:60px;text-align:center}.stat .ico{font-size:20px;color:var(--green);height:25px}.stat strong{display:block;font-size:23px;font-weight:500}.stat small{color:var(--muted);font-size:11px}
+
+.title{display:flex;align-items:center;justify-content:space-between;margin:8px 0 12px}.title h1,.section h2{font-family:"Playfair Display",Georgia,serif;font-weight:500}.title h1{font-size:39px;margin:0}.number{background:rgba(91,143,69,.65);color:var(--green);padding:8px 13px;border-radius:999px;font-weight:700}
+.glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(22px) saturate(125%);-webkit-backdrop-filter:blur(22px) saturate(125%);box-shadow:0 12px 40px rgba(0,0,0,.16)}
+.task{min-height:92px;border-radius:23px;margin:10px 0;padding:12px 15px;display:grid;grid-template-columns:62px minmax(0,1fr) auto 52px;gap:13px;align-items:center}
+.ticon{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;font-size:29px;background:rgba(36,66,64,.62)}.ticon.gold{background:rgba(73,69,35,.55)}
+.task h3{margin:0 0 3px;font-size:18px}.plant{color:var(--green);font-weight:700;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.loc{color:var(--muted);font-size:12px;margin-top:5px}.today{font-size:13px;font-weight:700;color:var(--blue)}.today.gold{color:var(--gold)}
+.check{width:52px;height:52px;border-radius:50%;border:1px solid rgba(145,214,106,.72);background:rgba(7,28,14,.35);font-size:26px;display:grid;place-items:center}
+.more{height:56px;border-radius:19px;border:0;width:100%;background:rgba(17,42,25,.68);color:#edf2ed;font-size:14px;margin-top:10px}
+
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}.card{border-radius:24px;padding:17px;min-height:275px;overflow:hidden}.cardhead{display:flex;justify-content:space-between;gap:8px;align-items:center}.cardhead h3{margin:0;font-size:18px}.pill{border:0;border-radius:20px;background:rgba(21,48,28,.72);padding:10px 13px;font-size:12px;white-space:nowrap}
+.place{margin-top:13px;font-size:12px;color:var(--muted)}.temp{font-size:44px;line-height:1;margin:20px 0 7px}.weatherrow{font-size:12px;color:var(--muted);margin:5px 0}.forecast{display:flex;justify-content:space-between;margin-top:19px;color:var(--muted);font-size:10px;text-align:center;line-height:1.7}
+.env{display:grid;grid-template-columns:28px 1fr;gap:8px;margin:15px 0}.env b{font-size:15px}.env small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.quality{font-size:11px;color:var(--green);font-weight:700;margin-top:3px}
+
+.insight{margin-top:24px;border-radius:23px;padding:18px;display:grid;grid-template-columns:54px 1fr auto;gap:12px;align-items:center}.robot{font-size:35px}.insight h3{margin:0 0 4px;color:var(--green);font-size:16px}.insight p{margin:0;color:#dfe6df;font-size:13px;line-height:1.35}.details{border:0;background:rgba(21,48,28,.72);padding:10px 12px;border-radius:18px;font-size:11px}
+.section{margin-top:30px}.section h2{font-size:37px;margin:0 0 12px}.growth{display:flex;gap:12px;overflow:auto}.growth::-webkit-scrollbar{display:none}.growthcard{min-width:180px;border-radius:20px;overflow:hidden}.gimg{height:165px;background:url("assets/botanical-scene.jpg") center/cover}.gbody{padding:11px}.gbody b{font-family:"Playfair Display",Georgia,serif;font-size:16px}.gbody small{display:block;color:var(--green);font-weight:700;margin-top:5px}
+
+.nav{position:fixed;z-index:30;left:50%;bottom:16px;transform:translateX(-50%);width:min(570px,calc(100% - 70px));height:70px;border-radius:38px;background:rgba(3,18,9,.73);border:1px solid rgba(145,214,106,.25);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);display:grid;grid-template-columns:1fr 1fr 72px 1fr 1fr;align-items:center;box-shadow:0 18px 45px rgba(0,0,0,.45)}
+.nav button{border:0;background:none;color:#aab3ac;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:3px}.nav .active{color:var(--green)}.navicon{font-size:23px}.fab{width:64px!important;height:64px!important;border-radius:50%!important;background:var(--green)!important;color:#10200d!important;font-size:31px!important;justify-self:center;box-shadow:0 0 0 4px rgba(3,18,9,.7)}
+
+@media(max-width:560px){
+ .page{padding:0 30px 120px}.hero{min-height:265px;padding-top:24px}.hello{margin-top:30px}.name{font-size:49px}
+ .stats{gap:25px;margin-top:27px}
+ .task{grid-template-columns:58px minmax(0,1fr) 48px;gap:11px;padding:11px 13px}.ticon{width:58px;height:58px}.today{display:none}
+ .twocol{gap:10px}.card{padding:15px;min-height:270px}.cardhead h3{font-size:16px}.pill{padding:9px 10px}
+ .insight{grid-template-columns:45px 1fr}.details{grid-column:2;justify-self:start}
+ .title h1{font-size:38px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+<header class="hero">
+ <div class="top"><button class="menu">☰</button><div class="actions"><span class="bubble">3</span><div class="avatar"></div></div></div>
+ <div class="hello">Good morning,</div><div class="name">Davi <span>🌿</span></div><div class="tag">Your plants are looking great!</div>
+ <div class="stats"><div class="stat"><div class="ico">🌿</div><strong>12</strong><small>Plants</small></div><div class="stat"><div class="ico">♧</div><strong>3</strong><small>Spaces</small></div><div class="stat"><div class="ico">◯</div><strong>92%</strong><small>Collection score</small></div></div>
+</header>
+<section>
+ <div class="title"><h1>Today's tasks</h1><span class="number">5</span></div>
+ <div class="task glass"><div class="ticon">💧</div><div><h3>Water</h3><div class="plant">Anthurium magnificum</div><div class="loc">⌖ RUDSTA · Middle shelf</div></div><div class="today">Today</div><button class="check">✓</button></div>
+ <div class="task glass"><div class="ticon">📷</div><div><h3>Growth update (14-day)</h3><div class="plant">Alocasia zebrina</div><div class="loc">⌖ Living room</div></div><div class="today">Today</div><button class="check">✓</button></div>
+ <div class="task glass"><div class="ticon gold">⚗️</div><div><h3>Fertilize</h3><div class="plant">Monstera deliciosa</div><div class="loc">⌖ Living room</div></div><div class="today gold">Today</div><button class="check">✓</button></div>
+ <button class="more">+ 2 more tasks　⌄</button>
+</section>
+<section class="twocol">
+ <div class="card glass"><div class="cardhead"><h3>🌦️ Outside</h3><button class="pill">7-day ›</button></div><div class="place">Antwerp · ⟳ 07:30</div><div class="temp">22°C</div><div class="weatherrow">💧 69%</div><div class="weatherrow">💨 NW 14 km/h</div><div class="weatherrow">☀️ UV 3</div><div class="place">Partly cloudy</div><div class="forecast"><span>Tue<br>🌤️<br>23° 17°</span><span>Wed<br>🌧️<br>21° 16°</span><span>Thu<br>🌤️<br>24° 15°</span><span>Fri<br>☀️<br>25° 16°</span></div></div>
+ <div class="card glass"><div class="cardhead"><h3>Your environments</h3><button class="pill">Manage</button></div><div class="env"><div>▣</div><div><b>RUDSTA</b><small>23–26°C · 💧 70–80%</small><div class="quality">Optimal</div></div></div><div class="env"><div>▬</div><div><b>Living room</b><small>20–23°C · 💧 45–55%</small><div class="quality">Good</div></div></div><div class="env"><div>▤</div><div><b>Bedroom</b><small>19–22°C · 💧 40–50%</small><div class="quality">Good</div></div></div><div style="color:var(--green);font-size:12px;margin-top:13px">All spaces ›</div></div>
+</section>
+<section class="insight glass"><div class="robot">🤖</div><div><h3>Assistant insight</h3><p>The humidity outside is higher than usual. If you open the windows, your indoor humidity may rise.</p></div><button class="details">View details</button></section>
+<section class="section"><h2>Growth updates</h2><div class="growth"><div class="growthcard glass"><div class="gimg"></div><div class="gbody"><b>Anthurium forgetii</b><small>8 days left</small></div></div><div class="growthcard glass"><div class="gimg"></div><div class="gbody"><b>Alocasia zebrina</b><small>Today</small></div></div><div class="growthcard glass"><div class="gimg"></div><div class="gbody"><b>Monstera deliciosa</b><small>Today</small></div></div></div></section>
+</main>
+<nav class="nav"><button class="active"><span class="navicon">⌂</span>Home</button><button><span class="navicon">♧</span>Plants</button><button class="fab">+</button><button><span class="navicon">▣</span>Calendar</button><button><span class="navicon">▢</span>Assistant</button></nav>
+<script>document.querySelectorAll(".check").forEach(x=>x.onclick=()=>x.textContent=x.textContent==="✓"?"○":"✓");if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});</script>
+</body>
+</html>
